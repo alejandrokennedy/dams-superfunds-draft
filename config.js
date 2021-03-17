@@ -5,10 +5,10 @@ var config = {
     markerColor: '#3FB1CE',
     theme: 'light',
     use3dTerrain: false,
-    title: 'Toxic Cascades',
-    subtitle: 'An Undark Magazine investigation finds aging dams pose a hidden risk to hazardous waste sites around the United States',
-    byline: 'By James Dinneen and Alexander Kennedy',
-    footer: '[FOOTER]',
+    // title: 'Toxic Cascades',
+    // subtitle: 'An Undark Magazine investigation finds aging dams pose a hidden risk to hazardous waste sites around the United States',
+    // byline: 'By James Dinneen and Alexander Kennedy',
+    // footer: '[ FOOTER? ]',
     chapters: [
         {
             id: 'slug-style-id',
