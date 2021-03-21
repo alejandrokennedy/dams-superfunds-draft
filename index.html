@@ -119,7 +119,7 @@
 			opacity: 0.25;
 		}
 
-		.step.active {
+		.step.active-chapter {
 			opacity: 0.9;
 		}
 
@@ -299,7 +299,7 @@
 				container.setAttribute('id', record.id);
 				container.classList.add('step');
 				if (idx === 0) {
-					container.classList.add('active');
+					container.classList.add('active-chapter');
 				}
 
 				chapter.classList.add(config.theme);
@@ -398,7 +398,7 @@
 
 						var chapter = config.chapters.find(chap => chap.id === response.element.id);
 						console.log('response.element.classList 1', response.element.classList)
-						response.element.classList.add('active');
+						response.element.classList.add('active-chapter');
 						console.log('response.element.classList 2', response.element.classList)
 						map[chapter.mapAnimation || 'flyTo'](chapter.location);
 						if (config.showMarkers) {
@@ -427,7 +427,7 @@
 					})
 					.onStepExit(response => {
 						var chapter = config.chapters.find(chap => chap.id === response.element.id);
-						response.element.classList.remove('active');
+						response.element.classList.remove('active-chapter');
 						if (chapter.onChapterExit.length > 0) {
 							chapter.onChapterExit.forEach(setLayerOpacity);
 						}
