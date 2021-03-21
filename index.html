@@ -397,9 +397,12 @@
 						console.log(response.element)
 
 						var chapter = config.chapters.find(chap => chap.id === response.element.id);
+
 						console.log('response.element.classList 1', response.element.classList)
 						response.element.classList.add('active-chapter');
+						d3.select(response.element).classed('active-chapter', true)
 						console.log('response.element.classList 2', response.element.classList)
+
 						map[chapter.mapAnimation || 'flyTo'](chapter.location);
 						if (config.showMarkers) {
 							marker.setLngLat(chapter.location.center);
@@ -427,6 +430,8 @@
 					})
 					.onStepExit(response => {
 						var chapter = config.chapters.find(chap => chap.id === response.element.id);
+						console.log('%conStepExit triggered!', 'color: red; font-size: 16px;')
+						console.log('element from onStepExit:', response.element)
 						response.element.classList.remove('active-chapter');
 						if (chapter.onChapterExit.length > 0) {
 							chapter.onChapterExit.forEach(setLayerOpacity);
