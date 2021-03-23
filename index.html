@@ -116,7 +116,8 @@
 		.step {
 			padding-bottom: 50vh;
 			/* margin-bottom: 10vh; */
-			opacity: 0.25;
+			/* opacity: 0.25; */
+			opacity: 0.9;
 		}
 
 		.step.active-chapter {
@@ -392,20 +393,14 @@
 						progress: true
 					})
 					.onStepEnter(response => {
-						
-						console.log(response.index)
-						console.log(response.element)
-
+						// console.log(`%conStepEnter`, 'color: turquoise; font-size: 16px;', response.index)
+						// console.log(response.element)
 						var chapter = config.chapters.find(chap => chap.id === response.element.id);
-
-						console.log('response.element.classList 1', response.element.classList)
-						
-						// response.element.classList.add('active-chapter');
-						d3.selectAll('.active-chapter').classed('active-chapter', false)
-						d3.select(response.element).classed('active-chapter', true)
-						
-						console.log('response.element.classList 2', response.element.classList)
-
+						// console.log('1st:', response.element.classList.value)
+						response.element.classList.add('active-chapter');
+						// d3.selectAll('.active-chapter').classed('active-chapter', false)
+						// d3.select(response.element).classed('active-chapter', true)
+						// console.log('2nd', response.element.classList.value)
 						map[chapter.mapAnimation || 'flyTo'](chapter.location);
 						if (config.showMarkers) {
 							marker.setLngLat(chapter.location.center);
@@ -430,11 +425,9 @@
 					})
 					.onStepExit(response => {
 						var chapter = config.chapters.find(chap => chap.id === response.element.id);
-						
-						// console.log('%conStepExit triggered!', 'color: red; font-size: 16px;')
-						// console.log('element from onStepExit:', response.element)
-						// response.element.classList.remove('active-chapter');
-
+						// console.log(`%conStepExit triggered!`, 'color: red; font-size: 16px;', response.index)
+						// console.log('classList from onStepExit:', response.element.classList.value)
+						response.element.classList.remove('active-chapter');
 						if (chapter.onChapterExit.length > 0) {
 							chapter.onChapterExit.forEach(setLayerOpacity);
 						}
