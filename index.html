@@ -183,7 +183,7 @@
 			const csv = await d3.csv(url)
 
 			const chapters = csv.map(d => {
-				// console.log(d)
+				// console.log(Object.entries(d).splice(16).map(d => ({ "layer": d[0], "opacity": Number(d[1])})))
 				return {
 				id: d.id,
 				title: d.title,
@@ -196,8 +196,10 @@
 					pitch: +d.Pitch,
 					bearing: 0
 				},
-				onChapterEnter: layerFormat(d.onLayerEnter),
-				onChapterExit: layerFormat(d.onLayerExit)
+				// onChapterEnter: layerFormat(d.onLayerEnter),
+				onChapterExit: layerFormat(d.onLayerExit),
+				// onChapterExperiment: Object.entries(d).splice(16).map(d => ({ "layer": d[0], "opacity": !d[1] ? 0 : Number(d[1])}))
+				onChapterEnter: Object.entries(d).splice(16).map(d => ({ "layer": d[0], "opacity": !d[1] ? 0 : Number(d[1])}))
 			}
 			})
 
@@ -205,6 +207,7 @@
 			// console.log('config', config)
 
 			config.chapters = chapters
+			console.log('config.chapters', config.chapters)
 
 			/// - Alex's code ends
 
