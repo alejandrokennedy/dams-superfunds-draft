@@ -183,13 +183,14 @@
 			const csv = await d3.csv(url)
 
 			const chapters = csv.map(d => {
-				// console.log(Object.entries(d).splice(16).map(d => ({ "layer": d[0], "opacity": Number(d[1])})))
+				// console.log(Object.entries(d).splice(15).map(d => ({ "layer": d[0], "opacity": Number(d[1])})))
 				return {
 				id: d.id,
 				title: d.title,
 				image: d.photoUrl,
 				alignment: d.alignment,
-				description: d.Content,
+				// description: d.Content,
+				description: d.AltContent,
 				location: {
 					center: coordFormat(d['Long, Lat']),
 					zoom: +d.Zoom,
@@ -199,7 +200,7 @@
 				// onChapterEnter: layerFormat(d.onLayerEnter),
 				onChapterExit: layerFormat(d.onLayerExit),
 				// onChapterExperiment: Object.entries(d).splice(16).map(d => ({ "layer": d[0], "opacity": !d[1] ? 0 : Number(d[1])}))
-				onChapterEnter: Object.entries(d).splice(16).map(d => ({ "layer": d[0], "opacity": !d[1] ? 0 : Number(d[1])}))
+				onChapterEnter: Object.entries(d).splice(15).map(d => ({ "layer": d[0], "opacity": !d[1] ? 0 : Number(d[1])}))
 			}
 			})
 
@@ -341,9 +342,37 @@
 				}
 			}
 
+			const altStyle = {
+				version: 8,
+				sources: {
+					'raster-tiles': {
+						type: 'raster',
+						tiles: [
+							// 'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
+							// 'https://tiles.arcgis.com/tiles/QcN4ko50whTktDF1/arcgis/rest/services/Ortho_Midland2020_0520and0521/MapServer/tile/{z}/{x}/{y}.png'
+
+							// See https://gis.stackexchange.com/questions/328960/adding-usgs-wmts-to-mapbox-gl-js
+							// and https://tiles.arcgis.com/tiles/QcN4ko50whTktDF1/arcgis/rest/services/Ortho_Midland2020_0520and0521/MapServer/WMTS/1.0.0/WMTSCapabilities.xml?cacheKey=a17250076949a294
+							'https://tiles.arcgis.com/tiles/QcN4ko50whTktDF1/arcgis/rest/services/Ortho_Midland2020_0520and0521/MapServer/WMTS/tile/1.0.0/Ortho_Midland2020_0520and0521/default/default028mm/{z}/{y}/{x}'
+						],
+						tileSize: 256
+					}
+				},
+				layers: [
+					{
+						id: 'simple-tiles',
+						type: 'raster',
+						source: 'raster-tiles',
+						minzoom: 0,
+						maxzoom: 22
+					}
+				]
+			}
+
 			var map = new mapboxgl.Map({
 				container: 'map',
 				style: config.style,
+				// style: altStyle,
 				center: config.chapters[0].location.center,
 				zoom: config.chapters[0].location.zoom,
 				bearing: config.chapters[0].location.bearing,
@@ -397,13 +426,23 @@
 					})
 					.onStepEnter(response => {
 						// console.log(`%conStepEnter`, 'color: turquoise; font-size: 16px;', response.index)
-						// console.log(response.element)
+						// console.log('response.element.id', response.element.id)
 						var chapter = config.chapters.find(chap => chap.id === response.element.id);
 						// console.log('1st:', response.element.classList.value)
 						response.element.classList.add('active-chapter');
 						// d3.selectAll('.active-chapter').classed('active-chapter', false)
 						// d3.select(response.element).classed('active-chapter', true)
 						// console.log('2nd', response.element.classList.value)
+
+						// RASTER STYLE EXPERIMENTS
+						if (response.element.id === '33') {
+							map.setStyle(altStyle)
+						}
+						// } else if (map.style !== config.style) {
+						// 	map.setStyle(config.style)
+						// }
+						// RASTER STYLE EXPERIMENTS ^^^
+
 						map[chapter.mapAnimation || 'flyTo'](chapter.location);
 						if (config.showMarkers) {
 							marker.setLngLat(chapter.location.center);
