@@ -8,7 +8,7 @@ var config = {
     // title: 'Toxic Cascades',
     // subtitle: 'An Undark Magazine investigation finds aging dams pose a hidden risk to hazardous waste sites around the United States',
     // byline: 'By James Dinneen and Alexander Kennedy',
-    footer: 'Data sources: [some sources]<br><br><em>James Dinneen is a person<br><br>Alexander Kennedy is also a person</em>',
+    footer: 'Data sources: [TEST] Midland County, US EPA, US Army Corps of Engineers, Virginia DEM, South Carolina DEM, California Dam Safety, Rhode Island Dam Safety<br><br><em>James Dinneen is a science and environmental journalist from Colorado, based in New York.<br><br>Alexander Kennedy is a front-end software engineer specializing in data visualization.</em>',
     chapters: [
         {
             id: 'slug-style-id',
