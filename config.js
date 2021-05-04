@@ -8,7 +8,7 @@ var config = {
     // title: 'Toxic Cascades',
     // subtitle: 'An Undark Magazine investigation finds aging dams pose a hidden risk to hazardous waste sites around the United States',
     // byline: 'By James Dinneen and Alexander Kennedy',
-    footer: 'Data sources: [TEST] Midland County, US EPA, US Army Corps of Engineers, Virginia DEM, South Carolina DEM, California Dam Safety, Rhode Island Dam Safety<br><br><em>James Dinneen is a science and environmental journalist from Colorado, based in New York.<br><br>Alexander Kennedy is a front-end software engineer specializing in data visualization.</em>',
+    footer: 'Data Sources: Dams: National Inventory of Dams; Hazardous waste sites: EPA Envirofacts; Inundation Zones: Rhode Island Department of Environmental Management, California Department of Water Resources, Virginia Department of Conservation and Recreation; Midland Flooding: City of Midland<br><br><em>James Dinneen is a science and environmental journalist from Colorado, based in New York.<br><br>Alexander Kennedy is a front-end software engineer specializing in data visualization.</em>',
     chapters: [
         {
             id: 'slug-style-id',
