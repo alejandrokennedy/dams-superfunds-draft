@@ -7,6 +7,15 @@
 <!-- dams -->
 <!-- <div class="map-color-key" style="background-color: #f76a45;"></div> -->
 
+<!-- 90,000 dams -->
+<!-- <div class="map-color-key" style="background-color: #7f948d;"></div> -->
+
+<!-- hh dams -->
+<!-- <div class="map-color-key" style="background-color: #c29100;"></div> -->
+
+<!-- tippyTop -->
+<!-- <div class="map-color-key" style="background-color: #ff3705; border: 1px solid #ad2300; border-radius: 6px; width: 6px; height: 6px;"></div> -->
+
 <head>
 	<meta charset='utf-8' />
 	<title>Mapbox Storytelling</title>
@@ -162,7 +171,13 @@
 			height: 15px;
 			padding: 0px !important;
 			display: inline-block;
-			border-radius: 2.5px;
+			border-radius: 1.5px;
+		}
+
+		.photo-caption {
+			font-style: italic;
+			font-family: 'Palatino', 'Georgia', 'serif';
+			font-size: 14px;
 		}
 		
 	</style>
@@ -338,7 +353,7 @@
 			if (config.footer) {
 				var footerText = document.createElement('p');
 				footerText.innerHTML = config.footer;
-				footer.appendChild(footerText);
+				footer.appendChild(footerText).setAttribute('style', 'padding-right: 40px; padding-left: 40px;');
 			}
 
 			if (footer.innerText.length > 0) {
