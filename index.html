@@ -453,14 +453,15 @@
 						progress: true
 					})
 					.onStepEnter(response => {
-						// console.log(`%conStepEnter`, 'color: turquoise; font-size: 16px;', response.index)
-						// console.log('response.element.id', response.element.id)
+						console.log(`%conStepEnter`, 'color: turquoise; font-size: 16px;', response.index)
+						console.log('response', response)
+						console.log('response.element.id', response.element.id)
 						var chapter = config.chapters.find(chap => chap.id === response.element.id);
-						// console.log('1st:', response.element.classList.value)
+						console.log('1st:', response.element.classList.value)
 						response.element.classList.add('active-chapter');
 						// d3.selectAll('.active-chapter').classed('active-chapter', false)
 						// d3.select(response.element).classed('active-chapter', true)
-						// console.log('2nd', response.element.classList.value)
+						console.log('2nd', response.element.classList.value)
 
 						// RASTER STYLE EXPERIMENTS
 						// if (response.element.id === '1') {
