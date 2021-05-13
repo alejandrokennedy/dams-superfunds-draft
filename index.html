@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<!-- firestation -->
-<!-- <div class="map-color-key" style="background-color: #e6ff00; border: 1px solid #a8b432;"></div> -->
-
-<!-- dams -->
-<!-- <div class="map-color-key" style="background-color: #f76a45;"></div> -->
-
 <!-- 90,000 dams -->
 <!-- <div class="map-color-key" style="background-color: #7f948d;"></div> -->
 
@@ -21,7 +15,7 @@
 
 <head>
 	<meta charset='utf-8' />
-	<title>Mapbox Storytelling</title>
+	<title>Toxic Cascades</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
 	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
@@ -136,8 +130,8 @@
 		.step {
 			padding-bottom: 50vh;
 			/* margin-bottom: 10vh; */
-			/* opacity: 0.25; */
-			opacity: 0.9;
+			opacity: 0.25;
+			/* opacity: 0.9; */
 		}
 
 		.step.active-chapter {
@@ -387,11 +381,6 @@
 					'raster-tiles': {
 						type: 'raster',
 						tiles: [
-							// 'https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
-							// 'https://tiles.arcgis.com/tiles/QcN4ko50whTktDF1/arcgis/rest/services/Ortho_Midland2020_0520and0521/MapServer/tile/{z}/{x}/{y}.png'
-
-							// See https://gis.stackexchange.com/questions/328960/adding-usgs-wmts-to-mapbox-gl-js
-							// and https://tiles.arcgis.com/tiles/QcN4ko50whTktDF1/arcgis/rest/services/Ortho_Midland2020_0520and0521/MapServer/WMTS/1.0.0/WMTSCapabilities.xml?cacheKey=a17250076949a294
 							'https://tiles.arcgis.com/tiles/QcN4ko50whTktDF1/arcgis/rest/services/Ortho_Midland2020_0520and0521/MapServer/WMTS/tile/1.0.0/Ortho_Midland2020_0520and0521/default/default028mm/{z}/{y}/{x}'
 						],
 						tileSize: 256
