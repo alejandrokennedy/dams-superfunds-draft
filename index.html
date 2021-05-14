@@ -418,28 +418,6 @@
 				marker.setLngLat(config.chapters[0].location.center).addTo(map);
 			}
 
-			// TESTING SCROLLENTER
-
-			enterView({
-				selector: '.step',
-				enter: function(el) {
-					console.log('el', el)
-					el.classList.add('active-chapter');
-				},
-				exit: function(el) {
-					el.classList.remove('active-chapter');
-				},
-				offset: 0.5, // enter at middle of viewport
-			});
-
-
-			// TESTING SCROLLENTER ˆˆˆ
-			
-			
-
-			// instantiate the scrollama
-			var scroller = scrollama();
-
 			map.on("load", function () {
 				if (config.use3dTerrain) {
 					map.addSource('mapbox-dem', {
@@ -466,39 +444,11 @@
 					});
 				};
 
-				// setup the instance, pass callback functions
-				scroller
-					.setup({
-						step: '.step',
-						offset: 0.5,
-						progress: true,
-						debug: true
-					})
-					// .offsetTrigger(0.8)
-					.onStepEnter(response => {
-						// console.log(`%conStepEnter`, 'color: turquoise; font-size: 16px;', response.index)
-						// console.log('response', response)
-						// console.log('response.element.id', response.element.id)
-						var chapter = config.chapters.find(chap => chap.id === response.element.id);
-						// console.log('1st:', response.element.classList.value)
-						
-						// RESTORE THIS AFTER CHAPTERENTER TESTS
-						// response.element.classList.add('active-chapter');
-						
-						// d3.selectAll('.active-chapter').classed('active-chapter', false)
-						// d3.select(response.element).classed('active-chapter', true)
-						// console.log('2nd', response.element.classList.value)
-
-						// RASTER STYLE EXPERIMENTS
-						// if (response.element.id === '1') {
-							// map.setStyle(altStyle)
-							// map.setStyle(config.style)
-						// }
-
-						// } else if (map.style !== config.style) {
-						// 	map.setStyle(config.style)
-						// }
-						// RASTER STYLE EXPERIMENTS ^^^
+				enterView({
+					selector: '.step',
+					enter: function(el) {
+						el.classList.add('active-chapter');
+						const chapter = config.chapters.find(chap => chap.id === el.id);
 
 						map[chapter.mapAnimation || 'flyTo'](chapter.location);
 						if (config.showMarkers) {
@@ -521,23 +471,18 @@
 								});
 							});
 						}
-					})
-					.onStepExit(response => {
-						var chapter = config.chapters.find(chap => chap.id === response.element.id);
-						// console.log(`%conStepExit triggered!`, 'color: red; font-size: 16px;', response.index)
-						// console.log('classList from onStepExit:', response.element.classList.value)
-						
-						// RESTORE THIS AFTER CHAPTERENTER TESTS
-						// response.element.classList.remove('active-chapter');
+					},
+					exit: function(el) {
+						el.classList.remove('active-chapter');
+						const chapter = config.chapters.find(chap => chap.id === el.id);
 						
 						if (chapter.onChapterExit.length > 0) {
 							chapter.onChapterExit.forEach(setLayerOpacity);
 						}
-					});
+					},
+					offset: 0.5, // enter at middle of viewport
+				});
 			});
-
-			// setup resize event
-			window.addEventListener('resize', scroller.resize);
 		}
 	</script>
 
