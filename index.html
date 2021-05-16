@@ -482,7 +482,8 @@
 						map[prevChapter.mapAnimation || 'flyTo'](prevChapter.location);
 						if (prevChapter.onChapterEnter.length > 0) prevChapter.onChapterEnter.forEach(setLayerOpacity)
 					},
-					offset: 0.6, // enter at middle of viewport
+					offset: ua.device.type === "Mobile" ? 0.3 : 0.6,
+					// offset: 0.6,
 				});
 			});
 		}
