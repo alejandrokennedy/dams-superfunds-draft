@@ -455,6 +455,9 @@
 							marker.setLngLat(chapter.location.center);
 						}
 						if (chapter.onChapterEnter.length > 0) {
+							if (chapter.id === '6') {
+								console.log(chapter)
+							}
 							chapter.onChapterEnter.forEach(setLayerOpacity);
 						}
 						if (chapter.callback) {
@@ -475,10 +478,9 @@
 					exit: function(el) {
 						el.classList.remove('active-chapter');
 						const chapter = config.chapters.find(chap => chap.id === el.id);
-						
-						if (chapter.onChapterExit.length > 0) {
-							chapter.onChapterExit.forEach(setLayerOpacity);
-						}
+						const prevChapter = config.chapters.find(chap => chap.id === (Number(el.id) - 1).toString());
+						map[prevChapter.mapAnimation || 'flyTo'](prevChapter.location);
+						if (prevChapter.onChapterEnter.length > 0) prevChapter.onChapterEnter.forEach(setLayerOpacity)
 					},
 					offset: 0.6, // enter at middle of viewport
 				});
