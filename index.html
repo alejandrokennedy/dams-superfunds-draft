@@ -449,6 +449,7 @@
 					enter: function(el) {
 						el.classList.add('active-chapter');
 						const chapter = config.chapters.find(chap => chap.id === el.id);
+						console.log(chapter.id, chapter.location.center, chapter.location.zoom)
 
 						map[chapter.mapAnimation || 'flyTo'](chapter.location);
 						if (config.showMarkers) {
