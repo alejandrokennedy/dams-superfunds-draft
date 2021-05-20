@@ -42,6 +42,7 @@
 		a:hover,
 		a:visited {
 			color: #0071bc;
+			/* color: #9c754f; */
 		}
 
 		#map {
@@ -401,8 +402,8 @@
 
 			var map = new mapboxgl.Map({
 				container: 'map',
-				style: config.style,
-				// style: altStyle,
+				// style: config.style,
+				style: altStyle,
 				center: config.chapters[0].location.center,
 				zoom: config.chapters[0].location.zoom,
 				bearing: config.chapters[0].location.bearing,
@@ -451,6 +452,13 @@
 						const chapter = config.chapters.find(chap => chap.id === el.id);
 						console.log(chapter.id, chapter.location.center, chapter.location.zoom)
 
+						// if (el.id > 0) map.style = config.style
+						if (el.id > 0) {
+							console.log('greater than zero!')
+							console.log(map.style)
+							map.setStyle(config.style)
+						}
+
 						window.myMap = map
 						console.log((chapter.location))
 
@@ -458,12 +466,16 @@
 						if (config.showMarkers) {
 							marker.setLngLat(chapter.location.center);
 						}
-						if (chapter.onChapterEnter.length > 0) {
-							if (chapter.id === '6') {
-								console.log(chapter)
-							}
+						
+						// if (chapter.onChapterEnter.length > 0) {
+						// 	chapter.onChapterEnter.forEach(setLayerOpacity);
+						// }
+						
+						// EXPERIMENTING
+						if (chapter.onChapterEnter.length > 0 && chapter.id > 0) {
 							chapter.onChapterEnter.forEach(setLayerOpacity);
 						}
+
 						if (chapter.callback) {
 							window[chapter.callback]();
 						}
