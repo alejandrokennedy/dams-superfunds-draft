@@ -31,6 +31,14 @@
 
 	<script src="https://unpkg.com/enter-view"></script>
 	
+	<!-- <script src="https://d3js.org/d3-array.v2.min.js"></script> -->
+	<!-- <script src="https://d3js.org/d3-color.v2.min.js"></script> -->
+	<!-- <script src="https://d3js.org/d3-format.v2.min.js"></script> -->
+	<!-- <script src="https://d3js.org/d3-interpolate.v2.min.js"></script> -->
+	<!-- <script src="https://d3js.org/d3-time.v2.min.js"></script> -->
+	<!-- <script src="https://d3js.org/d3-time-format.v3.min.js"></script> -->
+	<script src="https://d3js.org/d3-scale.v3.min.js"></script>
+
 	<style>
 		body {
 			margin: 0;
@@ -46,6 +54,13 @@
 		}
 
 		#map {
+			top: 0;
+			height: 100vh;
+			width: 100vw;
+			position: fixed;
+		}
+
+		#satellite {
 			top: 0;
 			height: 100vh;
 			width: 100vw;
@@ -188,14 +203,17 @@
 <body>
 
 	<div id="map"></div>
+	<div id="satellite"></div>
 	<div id="story"></div>
 	<script src="./config.js"></script>
 	<script>
 
 		/// - Alex's code begins
-
+		// const opacityScale = d3.scaleLinear().domain([0, 1]).range([1, 0])
+		const opacityScale = d3.scalePow()
+  		.exponent(7).domain([0, 1]).range([1, 0])
+		// const opacityScale = d3.scalePow().domain([0, 1]).range([1, 0])
 		const coordFormat = d => d.split(', ').map(num => +num)
-		
 		const layerFormat = d =>
 		d
 		? d
@@ -400,6 +418,23 @@
 				]
 			}
 
+			const satelliteMap = new mapboxgl.Map({
+				container: 'satellite',
+				style: altStyle,
+				center: config.chapters[0].location.center,
+				zoom: config.chapters[0].location.zoom,
+				bearing: config.chapters[0].location.bearing,
+				pitch: config.chapters[0].location.pitch,
+				interactive: false,
+				transformRequest: transformRequest
+				// ?
+
+			})
+
+			// satelliteMap.on("load", function () {
+			// 	console.log('satellite map loaded')
+			// })
+
 			var map = new mapboxgl.Map({
 				container: 'map',
 				style: config.style,
@@ -489,6 +524,12 @@
 									}
 								});
 							});
+						}
+					},
+					progress: function(el, progress) {
+						if (el.id == 0) {
+							if (opacityScale.domain()[0] === 0) opacityScale.domain([progress, 1])
+							document.getElementById('satellite').style.opacity = opacityScale(progress)
 						}
 					},
 					exit: function(el) {
