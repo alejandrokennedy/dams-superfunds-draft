@@ -28,6 +28,17 @@
 			font-family: 'Palatino', 'Raleway', sans-serif;
 		}
 
+		@font-face {
+			font-family: 'Palatino';
+			font-weight: 400;
+			font-style: normal;
+			font-display: swap; /* Read next point */
+			unicode-range: U+000-5FF; /* Download only latin glyphs */
+			src: local('Palatino'),
+				/* url('/fonts/custom-font.woff2') format('woff2'), */
+				url('./Palatino.woff') format('woff');
+		}
+
 		a,
 		a:hover,
 		a:visited {
