@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<!-- 90,000 dams -->
-<!-- <div class="map-color-key" style="background-color: #7f948d;"></div> -->
-
-<!-- hh dams -->
-<!-- <div class="map-color-key" style="background-color: #c29100;"></div> -->
-
-<!-- tippyTop -->
-<!-- <div class="map-color-key" style="background-color: #ff3705; border: 1px solid #ad2300; border-radius: 6px; width: 6px; height: 6px;"></div> -->
-
-<!-- Oroville SFs -->
-<!-- <div class="map-color-key" style="background-color: #7c8ecb; border: 1px solid #324a9a; border-radius: 8px; width: 8px; height: 8px;"></div> -->
-
 <head>
 	<meta charset='utf-8' />
 	<title>Toxic Cascades</title>
@@ -30,13 +18,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Detect.js/2.2.2/detect.min.js"></script>
 
 	<script src="https://unpkg.com/enter-view"></script>
-	
-	<!-- <script src="https://d3js.org/d3-array.v2.min.js"></script> -->
-	<!-- <script src="https://d3js.org/d3-color.v2.min.js"></script> -->
-	<!-- <script src="https://d3js.org/d3-format.v2.min.js"></script> -->
-	<!-- <script src="https://d3js.org/d3-interpolate.v2.min.js"></script> -->
-	<!-- <script src="https://d3js.org/d3-time.v2.min.js"></script> -->
-	<!-- <script src="https://d3js.org/d3-time-format.v3.min.js"></script> -->
 	<script src="https://d3js.org/d3-scale.v3.min.js"></script>
 
 	<style>
@@ -220,10 +201,7 @@
 	<script>
 
 		/// - Alex's code begins
-		// const opacityScale = d3.scaleLinear().domain([0, 1]).range([1, 0])
-		const opacityScale = d3.scalePow()
-  		.exponent(7).domain([0, 1]).range([1, 0])
-		// const opacityScale = d3.scalePow().domain([0, 1]).range([1, 0])
+		const opacityScale = d3.scalePow().exponent(7).domain([0, 1]).range([1, 0])
 		const coordFormat = d => d.split(', ').map(num => +num)
 		const layerFormat = d =>
 		d
@@ -438,18 +416,11 @@
 				pitch: config.chapters[0].location.pitch,
 				interactive: false,
 				transformRequest: transformRequest
-				// ?
-
 			})
-
-			// satelliteMap.on("load", function () {
-			// 	console.log('satellite map loaded')
-			// })
 
 			var map = new mapboxgl.Map({
 				container: 'map',
 				style: config.style,
-				// style: altStyle,
 				center: config.chapters[0].location.center,
 				zoom: config.chapters[0].location.zoom,
 				bearing: config.chapters[0].location.bearing,
@@ -496,17 +467,10 @@
 					enter: function(el) {
 						el.classList.add('active-chapter');
 						const chapter = config.chapters.find(chap => chap.id === el.id);
-						console.log(chapter.id, chapter.location.center, chapter.location.zoom)
+						// console.log(chapter.id, chapter.location.center, chapter.location.zoom)
 
-						// if (el.id > 0) map.style = config.style
-						// if (el.id > 0) {
-						// 	console.log('greater than zero!')
-						// 	console.log(map.style)
-						// 	map.setStyle(config.style)
-						// }
-
-						window.myMap = map
-						console.log((chapter.location))
+						// window.myMap = map
+						// console.log((chapter.location))
 
 						map[chapter.mapAnimation || 'flyTo'](chapter.location);
 						if (config.showMarkers) {
@@ -516,11 +480,6 @@
 						if (chapter.onChapterEnter.length > 0) {
 							chapter.onChapterEnter.forEach(setLayerOpacity);
 						}
-						
-						// EXPERIMENTING
-						// if (chapter.onChapterEnter.length > 0 && chapter.id > 0) {
-						// 	chapter.onChapterEnter.forEach(setLayerOpacity);
-						// }
 
 						if (chapter.callback) {
 							window[chapter.callback]();
@@ -538,7 +497,7 @@
 						}
 					},
 					progress: function(el, progress) {
-						if (el.id == 0) {
+						if (el.id == '0') {
 							if (opacityScale.domain()[0] === 0) opacityScale.domain([progress, 1])
 							document.getElementById('satellite').style.opacity = opacityScale(progress)
 						}
@@ -551,7 +510,6 @@
 						if (prevChapter.onChapterEnter.length > 0) prevChapter.onChapterEnter.forEach(setLayerOpacity)
 					},
 					offset: ua.device.type === "Mobile" ? 0.45 : 0.6,
-					// offset: 0.6,
 				});
 			});
 		}
